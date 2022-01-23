@@ -1,0 +1,34 @@
+.header{
+  height: 86px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 64px;
+
+  &__nav{
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 20px;
+    display: flex;
+    justify-content: space-between;
+
+    &__bths_container{
+      display: flex;
+      gap: 53px;
+      font-size: 0.875rem;
+      line-height: 1rem;
+
+      &__login_bths_container{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      &__cart{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+}
