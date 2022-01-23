@@ -7,6 +7,7 @@ import './App.scss';
 import MainCatalog from "./components/MainCatalog/MainCatalog";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import ProductPage from "./components/ProductPage/ProductPage";
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
       <Provider store={store}>
     <div className="App">
       <Header/>
-      <MainCatalog/>
+      <ProductPage/>
       <Footer/>
     </div>
       </Provider>

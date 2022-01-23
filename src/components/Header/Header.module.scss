@@ -3,7 +3,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 64px;
+  border-bottom: 1px solid #F8F8F8;
+  flex: 0 0 auto;
 
   &__nav{
     width: 100%;

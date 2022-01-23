@@ -7,4 +7,18 @@
   padding: 0;
 }
 
+html, body{
+  height: 100%;
+}
+
+main{
+  flex: 1 0 auto;
+}
+
+.App{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 
