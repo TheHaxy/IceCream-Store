@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {MouseEventHandler} from 'react';
 
 import ButtonClasses from "./Button.module.scss"
 
-const Button = ({location, text, image, onClick}: {location: string, text: string, image: string, onClick: Function}) => {
+const Button = ({location, text, image, onClick}: {location: string, text: string, image: string, onClick: MouseEventHandler<HTMLButtonElement>}) => {
     return (
-        <button className={ButtonClasses[`button__${location}`]}>
+        <button className={ButtonClasses[`button__${location}`]} onClick={onClick}>
             {location === "product_page" &&
                 <img src={image} alt="Cart Icon"/>
             }

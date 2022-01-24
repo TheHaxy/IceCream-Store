@@ -6,8 +6,14 @@ import Footer from "../Footer/Footer";
 import LocationPanel from "../LocationPanel/LocationPanel";
 import Button from "../UI/Button/Button";
 import ProductCardToCart from "../ProductCardToCart/ProductCardToCart";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/store";
 
 const CartPage = () => {
+    const products = useSelector((state: RootState) => state.cartReducer)
+
+    const orderPlaced = () => {
+    }
     return (
         <>
             <Header/>
@@ -17,9 +23,9 @@ const CartPage = () => {
                     <div className={CartPageClasses.cart_page__content__products_section}>
                         <h1 className={CartPageClasses.cart_page__content__products_section__title}>Basket</h1>
                         <div className={CartPageClasses.cart_page__content__products_section__list}>
-                            <ProductCardToCart/>
-                            <ProductCardToCart/>
-                            <ProductCardToCart/>
+                            {products.map((product) => {
+                                return <ProductCardToCart product={product} key={product.id}/>
+                            })}
                         </div>
                     </div>
                     <div className={CartPageClasses.cart_page__content__price_section}>
@@ -28,7 +34,7 @@ const CartPage = () => {
                                 total:</p>
                             <p className={CartPageClasses.cart_page__content__price_section__price_block__price}>3222</p>
                         </div>
-                        <Button location="cart_page" text="Check out" image=""/>
+                        <Button location="cart_page" text="Check out" image="" onClick={() => orderPlaced()}/>
                     </div>
                 </section>
             </main>

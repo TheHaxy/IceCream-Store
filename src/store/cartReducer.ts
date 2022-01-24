@@ -10,6 +10,7 @@ const exportToStorage = (key: string, state: any) => {
 export const cartReducer = (state = defaultState, action: CartActionType): Array<ProductCardType> => {
     switch (action.type) {
         case ADD_TO_CART:
+            console.log('=======>state', state.find((el) => el.id === action.payload.id))
             exportToStorage("CART_STORAGE", [...state, action.payload])
             return [...state, action.payload]
         case REMOVE_FROM_CART:

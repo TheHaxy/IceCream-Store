@@ -1,13 +1,12 @@
 import React from 'react';
 
 import LocationPanelClasses from "./LocationPanel.module.scss"
-import {useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const LocationPanel = ({location}: {location: string}) => {
-    const history = useHistory();
     return (
         <div className={LocationPanelClasses.location_panel}>
-            <p onClick={() => history.goBack()} className={LocationPanelClasses.location_panel__last_location}>Main page</p>
+            <Link to="/main-page" className={LocationPanelClasses.location_panel__last_location}>Main page</Link>
             <p style={{opacity: 0.5}}>/</p>
             <p>{location}</p>
         </div>

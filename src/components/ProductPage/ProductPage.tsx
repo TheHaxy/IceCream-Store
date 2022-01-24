@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import ProductPageClasses from "./ProductPage.module.scss"
 import plus from "../../assets/plus.svg"
@@ -9,19 +9,31 @@ import Header from "../Header/Header";
 
 import {useLocation} from "react-router-dom";
 import {ProductCardType} from "../../store/actionTypes";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import LocationPanel from "../LocationPanel/LocationPanel";
 import cart from "../../assets/cart-icon-button.svg"
+import {addToCardAction} from "../../store/action";
 
 const ProductPage = () => {
+    const [counter, setCounter] = useState(1)
     const products: Array<ProductCardType> = useSelector((state: RootState) => state.catalogReducer)
     const location = useLocation()
+    const dispatch = useDispatch()
 
-    const thisProduct = products.find((item) => `#${item.id}` === location.hash)
+    const thisProduct: ProductCardType = products.find((item) => `#${item.id}` === location.hash) as ProductCardType
 
     const addToCart = () => {
+        thisProduct.number = counter
+        dispatch(addToCardAction(thisProduct))
+    }
 
+    const minusOnClick = () => {
+        counter > 1 && setCounter(counter-1)
+    }
+
+    const plusOnClick = () => {
+        setCounter(counter+1)
     }
     return (
         <>
@@ -45,9 +57,9 @@ const ProductPage = () => {
                             <p className={ProductPageClasses.product_page__content__info_section__price_section__price}>${thisProduct?.price}</p>
                             <div
                                 className={ProductPageClasses.product_page__content__info_section__price_section__counter}>
-                                <img src={minus} alt="Plus"/>
-                                <p>1</p>
-                                <img src={plus} alt="Minus"/>
+                                <img src={minus} alt="Plus" style={{cursor: "pointer"}} onClick={() => minusOnClick()}/>
+                                <p>{counter}</p>
+                                <img src={plus} alt="Minus" style={{cursor: "pointer"}} onClick={() => plusOnClick()}/>
                             </div>
                         </div>
                         <Button location="product_page" text="Add to cart" image={cart} onClick={() => addToCart()}/>

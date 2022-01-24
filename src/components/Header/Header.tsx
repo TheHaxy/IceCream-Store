@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Link } from 'react-router-dom'
 
 import HeaderClasses from "./Header.module.scss"
 import logo from "../../assets/logo.svg"
