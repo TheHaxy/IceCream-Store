@@ -1,11 +1,14 @@
 .header{
-  height: 110px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-bottom: 1px solid #F8F8F8;
+  flex: 0 0 auto;
 
   &__nav{
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px 0;
     margin: 0 20px;
     display: flex;
     justify-content: space-between;
