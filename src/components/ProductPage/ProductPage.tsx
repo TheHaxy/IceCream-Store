@@ -7,7 +7,7 @@ import Button from "../UI/Button/Button";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
-import {useHistory, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {ProductCardType} from "../../store/actionTypes";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
@@ -20,6 +20,9 @@ const ProductPage = () => {
 
     const thisProduct = products.find((item) => `#${item.id}` === location.hash)
 
+    const addToCart = () => {
+
+    }
     return (
         <>
             <Header/>
@@ -47,7 +50,7 @@ const ProductPage = () => {
                                 <img src={plus} alt="Minus"/>
                             </div>
                         </div>
-                        <Button location="product_page" text="Add to cart" image={cart}/>
+                        <Button location="product_page" text="Add to cart" image={cart} onClick={() => addToCart()}/>
                     </div>
                 </section>
             </main>

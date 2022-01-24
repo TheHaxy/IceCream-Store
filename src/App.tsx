@@ -15,11 +15,11 @@ function App() {
         <Provider store={store}>
             <div className="App">
                 <BrowserRouter>
-                <Switch>
-                    <Route path="/main-page"><MainCatalog/></Route>
-                    <Route path={`/product-page`}><ProductPage/></Route>
-                    <Route path={"/cart-page"}><CartPage/></Route>
-            </Switch>
+                    <Switch>
+                        <Route path="/main-page"><MainCatalog/></Route>
+                        <Route path="/product-page"><ProductPage/></Route>
+                        <Route path="/cart-page"><CartPage/></Route>
+                    </Switch>
                 </BrowserRouter>
             </div>
         </Provider>

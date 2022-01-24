@@ -9,6 +9,10 @@
     font-weight: 500;
     font-size: 1rem;
     border: none;
+
+    &:hover{
+      cursor: pointer;
+    }
   }
 
   &__cart_page{
@@ -18,10 +22,10 @@
     font-weight: 500;
     font-size: 1rem;
     border: none;
-  }
 
-  &:active{
-    border: none;
+    &:hover{
+      cursor: pointer;
+    }
   }
 
   &__text{
