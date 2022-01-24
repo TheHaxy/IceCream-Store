@@ -1,13 +1,14 @@
 import {CartActionType, LOAD_CATALOG, ProductCardType} from "./actionTypes";
 
-const defaultState: Array<ProductCardType> = JSON.parse(localStorage.getItem("CATALOG_STORAGE") || "[]")
+const defaultState: Array<ProductCardType> = []
 
-export const catalogReducer = (state = defaultState, action: CartActionType): Array<ProductCardType> => {
+export const catalogReducer = (state = defaultState, action: CartActionType): (ProductCardType | Array<ProductCardType>)[] => {
     switch (action.type) {
         case LOAD_CATALOG:
             localStorage.setItem("CATALOG_STORAGE", JSON.stringify(action.payload))
-            return state
+            return [...state, ...action.payload]
 
-        default: return state
+        default:
+            return state
     }
 }

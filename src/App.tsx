@@ -12,10 +12,11 @@ import ProductPage from "./components/ProductPage/ProductPage";
 
 function App() {
     return (
+
         <Provider store={store}>
             <div className="App">
                 <Header/>
-                <ProductPage/>
+                <MainCatalog/>
                 <Footer/>
             </div>
         </Provider>
