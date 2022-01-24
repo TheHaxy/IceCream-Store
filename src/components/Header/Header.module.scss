@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #F8F8F8;
-  flex: 0 0 auto;
+  flex: 1 0 auto;
 
   &__nav{
     width: 100%;
@@ -29,6 +29,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        text-decoration: none;
       }
     }
   }

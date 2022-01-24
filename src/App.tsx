@@ -5,19 +5,22 @@ import {Provider} from 'react-redux'
 
 import './App.scss';
 import MainCatalog from "./components/MainCatalog/MainCatalog";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
 import ProductPage from "./components/ProductPage/ProductPage";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import CartPage from "./components/CartPage/CartPage";
 
 
 function App() {
     return (
-
         <Provider store={store}>
             <div className="App">
-                <Header/>
-                <MainCatalog/>
-                <Footer/>
+                <BrowserRouter>
+                <Switch>
+                    <Route path="/main-page"><MainCatalog/></Route>
+                    <Route path={`/product-page`}><ProductPage/></Route>
+                    <Route path={"/cart-page"}><CartPage/></Route>
+            </Switch>
+                </BrowserRouter>
             </div>
         </Provider>
     );

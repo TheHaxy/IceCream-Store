@@ -6,6 +6,8 @@ import logo from "../../assets/logo.svg"
 import cartIcon from "../../assets/cart-icon.svg"
 import userIcon from "../../assets/user-icon.svg"
 
+import {Link} from "react-router-dom";
+
 const Header = () => {
     return (
         <header className={HeaderClasses.header}>
@@ -22,10 +24,10 @@ const Header = () => {
                             Sign in
                         </p>
                     </div>
-                    <p className={HeaderClasses.header__nav__bths_container__cart}>
+                    <Link to="/cart-page" className={HeaderClasses.header__nav__bths_container__cart}>
                         <img src={cartIcon} alt="Cart Icon"/>
                         Cart
-                    </p>
+                    </Link>
                 </div>
             </nav>
         </header>

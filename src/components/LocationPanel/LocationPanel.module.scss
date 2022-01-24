@@ -1,0 +1,17 @@
+.location_panel{
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  gap: 8px;
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  color: #212542;
+
+  &__last_location{
+    opacity: 0.5;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

@@ -6,7 +6,7 @@ export const catalogReducer = (state = defaultState, action: CartActionType): (P
     switch (action.type) {
         case LOAD_CATALOG:
             localStorage.setItem("CATALOG_STORAGE", JSON.stringify(action.payload))
-            return [...state, ...action.payload]
+            return [...action.payload]
 
         default:
             return state

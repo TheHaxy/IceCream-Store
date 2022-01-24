@@ -1,13 +1,14 @@
 import React from 'react';
 
 import ButtonClasses from "./Button.module.scss"
-import cart from "../../../assets/cart-icon-button.svg"
 
-const Button = () => {
+const Button = ({location, text, image}: {location: string, text: string, image: string}) => {
     return (
-        <button className={ButtonClasses.button}>
-            <img src={cart} alt="Cart Icon"/>
-            <p className={ButtonClasses.button__text}>Add to cart</p>
+        <button className={ButtonClasses[`button__${location}`]}>
+            {location === "product_page" &&
+                <img src={image} alt="Cart Icon"/>
+            }
+            <p className={ButtonClasses[`button__text`]}>{text}</p>
         </button>
     );
 };
