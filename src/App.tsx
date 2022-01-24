@@ -17,6 +17,7 @@ function App() {
                 <BrowserRouter>
                     <Switch>
                         <Route path="/main-page"><MainCatalog/></Route>
+                        <Route path="/main-page"><MainCatalog/></Route>
                         <Route path="/product-page"><ProductPage/></Route>
                         <Route path="/cart-page"><CartPage/></Route>
                     </Switch>

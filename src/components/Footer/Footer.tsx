@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 import FooterClasses from "./Footer.module.scss"
 
@@ -8,7 +9,9 @@ const Footer = () => {
     return (
         <footer className={FooterClasses.footer}>
             <nav className={FooterClasses.footer__nav}>
+                <Link to="/main-page">
                 <img src={logo} alt="Logo"/>
+                </Link>
                 <div className={FooterClasses.footer__nav__contacts_container}>
                     <p>Our Products</p>
                     <p>Privacy Terms</p>

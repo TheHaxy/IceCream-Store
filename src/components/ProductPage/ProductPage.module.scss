@@ -62,9 +62,10 @@
       }
 
       &__price_section{
+        width: 224px;
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 24px;
         margin-top: 32px;
         font-size: 1.5rem;
         line-height: 1rem;
@@ -72,11 +73,17 @@
         margin-bottom: 48px;
 
         &__counter{
+          width: 104px;
           display: flex;
+          justify-content: space-between;
           align-items: center;
           font-size: 1rem;
-          gap: 16px;
         }
+      }
+
+      &__bth_section{
+        display: flex;
+        gap: 32px;
       }
     }
   }

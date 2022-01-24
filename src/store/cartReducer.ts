@@ -10,8 +10,12 @@ const exportToStorage = (key: string, state: any) => {
 export const cartReducer = (state = defaultState, action: CartActionType): Array<ProductCardType> => {
     switch (action.type) {
         case ADD_TO_CART:
-            console.log('=======>state', state.find((el) => el.id === action.payload.id))
             exportToStorage("CART_STORAGE", [...state, action.payload])
+            const thisProduct = state.find((product) => product.id === action.payload.id)
+            if (thisProduct) {
+                thisProduct.sum! += action.payload.sum!
+                return [...state]
+            }
             return [...state, action.payload]
         case REMOVE_FROM_CART:
             exportToStorage("CART_STORAGE", state.filter(product => product.id !== action.payload.id))

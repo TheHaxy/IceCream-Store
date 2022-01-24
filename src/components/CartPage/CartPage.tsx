@@ -10,6 +10,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 
 const CartPage = () => {
+    let allPrice = 0
     const products = useSelector((state: RootState) => state.cartReducer)
 
     const orderPlaced = () => {
@@ -24,6 +25,7 @@ const CartPage = () => {
                         <h1 className={CartPageClasses.cart_page__content__products_section__title}>Basket</h1>
                         <div className={CartPageClasses.cart_page__content__products_section__list}>
                             {products.map((product) => {
+                                allPrice += product.price * product.sum!
                                 return <ProductCardToCart product={product} key={product.id}/>
                             })}
                         </div>
@@ -32,7 +34,7 @@ const CartPage = () => {
                         <div className={CartPageClasses.cart_page__content__price_section__price_block}>
                             <p className={CartPageClasses.cart_page__content__price_section__price_block__sub_total}>Sub
                                 total:</p>
-                            <p className={CartPageClasses.cart_page__content__price_section__price_block__price}>3222</p>
+                            <p className={CartPageClasses.cart_page__content__price_section__price_block__price}>{`$${allPrice}`}</p>
                         </div>
                         <Button location="cart_page" text="Check out" image="" onClick={() => orderPlaced()}/>
                     </div>

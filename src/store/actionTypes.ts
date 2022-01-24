@@ -2,7 +2,7 @@ export const ADD_TO_CART = "ADD_TO_CART"
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART"
 export const LOAD_CATALOG = "LOAD_CATALOG"
 
-export type ProductCardType = { name: string, text: string, id: string, price: number, image: string, number: number  }
+export type ProductCardType = { name: string, text: string, id: string, price: number, image: string, sum?: number, quantity: number }
 
 export type CartActionType = CartActionMapTypes[keyof CartActionMapTypes]
 
