@@ -25,7 +25,6 @@
 
   &__copyright_info{
     width: 100%;
-    height: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,6 +34,7 @@
       display: inline;
       width: 1200px;
       margin: 0 20px;
+      padding: 15px 0;
       color: rgba(33, 37, 66, 0.5);
       font-size: 0.75rem;
       line-height: 1rem;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import store from "./store/store"
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 
 import './App.scss';
 import MainCatalog from "./components/MainCatalog/MainCatalog";
@@ -11,15 +11,15 @@ import ProductPage from "./components/ProductPage/ProductPage";
 
 
 function App() {
-  return (
-      <Provider store={store}>
-    <div className="App">
-      <Header/>
-      <ProductPage/>
-      <Footer/>
-    </div>
-      </Provider>
-  );
+    return (
+        <Provider store={store}>
+            <div className="App">
+                <Header/>
+                <ProductPage/>
+                <Footer/>
+            </div>
+        </Provider>
+    );
 }
 
 export default App;

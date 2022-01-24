@@ -13,7 +13,6 @@ import heartIcon from "../../assets/heart-icon.svg"
 const MainCatalog = () => {
     const dispatch = useDispatch()
     const products: Array<ProductCardType> = useSelector((state: RootState) => state.catalogReducer)
-    console.log(products)
     dispatch(loadCatalogAction(catalogStorage))
     return (
         <main className={MainCatalogClasses.main}>
