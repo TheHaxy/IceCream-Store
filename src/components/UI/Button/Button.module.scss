@@ -1,31 +1,35 @@
+@mixin button_styles{
+  background: linear-gradient(92.65deg, #DFEBFF -21.79%, #88ADCA 126.46%), #AECEF3;
+  border-radius: 69px;
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  color: #FFFFFF;
+  
+  &:hover{
+    cursor: pointer;
+  }
+}
+
 .button{
 
   &__product_page{
-    background: linear-gradient(92.65deg, #DFEBFF -21.79%, #88ADCA 126.46%), #AECEF3;
+    @include button_styles;
     display: flex;
     gap: 10px;
     padding: 19px 32px;
-    border-radius: 69px;
-    font-weight: 500;
-    font-size: 1rem;
-    border: none;
 
-    &:hover{
-      cursor: pointer;
-    }
   }
 
   &__cart_page{
-    background: linear-gradient(92.65deg, #DFEBFF -21.79%, #88ADCA 126.46%), #AECEF3;
+    @include button_styles;
     padding: 22px 99px;
-    border-radius: 69px;
-    font-weight: 500;
-    font-size: 1rem;
-    border: none;
 
-    &:hover{
-      cursor: pointer;
-    }
+  }
+
+  &__sign{
+    @include button_styles;
+    padding: 22px 111px;
   }
 
   &__text{

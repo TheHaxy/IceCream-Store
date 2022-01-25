@@ -7,7 +7,7 @@ import {ProductCardType} from "../../store/actionTypes";
 import {RootState} from "../../store/store";
 import ProductCard from "../ProductCard/ProductCard";
 
-import MainCatalogClasses from "./MainCatalog.module.scss"
+import mainCatalogClasses from "./MainCatalog.module.scss"
 import heartIcon from "../../assets/heart-icon.svg"
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -21,12 +21,12 @@ const MainCatalog = () => {
     return (
         <>
             <Header/>
-            <main className={MainCatalogClasses.main}>
-                <section className={MainCatalogClasses.main__content}>
-                    <h1 className={MainCatalogClasses.main__content__title}>
+            <main className={mainCatalogClasses.main}>
+                <section className={mainCatalogClasses.main__content}>
+                    <h1 className={mainCatalogClasses.main__content__title}>
                         I <img src={heartIcon} alt="Heart Icon"/> ICE CREAM
                     </h1>
-                    <div className={MainCatalogClasses.main__content__catalog}>
+                    <div className={mainCatalogClasses.main__content__catalog}>
                         {products.map((product: ProductCardType) => {
                             return <ProductCard product={product} key={product.id}/>
                         })}

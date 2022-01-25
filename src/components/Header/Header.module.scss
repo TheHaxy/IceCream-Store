@@ -22,6 +22,10 @@
         display: flex;
         align-items: center;
         gap: 10px;
+
+        &__bth{
+          cursor: pointer;
+        }
       }
 
       &__cart{

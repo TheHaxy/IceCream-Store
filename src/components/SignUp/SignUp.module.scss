@@ -1,0 +1,71 @@
+.background {
+  &__open {
+
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: 200vh;
+    background: rgba(0, 0, 0, 0.8);
+
+    &__sign_up_window {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      position: fixed;
+      top: 172px;
+      z-index: 2;
+      padding: 56px 72px;
+      background: #FFFFFF;
+      border: 1px solid #F4F5FF;
+      border-radius: 20px;
+      transition: 0.3s;
+
+      &__title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 2.25rem;
+      }
+
+      &__form {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+
+        &__close_icon {
+          cursor: pointer;
+          position: absolute;
+          right: -124px;
+          top: -132px;
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      &__subtitle {
+        font-size: 1rem;
+        line-height: 1.5rem;
+        font-weight: 400;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__link{
+          border-bottom: 1px solid #AECEF3;
+          font-weight: 500;
+          color: #AECEF3;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  &__closed{
+    top: -1000px;
+    height: -1000px;
+    position: fixed;
+  }
+}

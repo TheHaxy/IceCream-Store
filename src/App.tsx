@@ -9,7 +9,6 @@ import ProductPage from "./components/ProductPage/ProductPage";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import CartPage from "./components/CartPage/CartPage";
 
-
 function App() {
     return (
         <Provider store={store}>
