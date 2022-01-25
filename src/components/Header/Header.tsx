@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 
 import headerClasses from "./Header.module.scss"
 import logo from "../../assets/logo.svg"
@@ -10,11 +10,25 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import SignUp from "../SignUp/SignUp";
 import SignIn from "../SignIn/SignIn";
+import Button from "../UI/Button/Button";
 
 const Header = () => {
     const [signUpState, setSignUpState] = useState(false)
     const [signInState, setSignInState] = useState(false)
+    const [loginUser, setLoginUser] = useState(localStorage.LOGIN_USER && JSON.parse(localStorage.getItem("LOGIN_USER") || ""))
     const cartLength = useSelector((state: RootState) => state.cartReducer.length)
+
+    useMemo(() => {
+        if (localStorage.LOGIN_USER) {
+            setLoginUser(JSON.parse(localStorage.getItem("LOGIN_USER") || ""))
+            console.log(loginUser)
+        }
+    }, [localStorage.LOGIN_USER])
+
+    const logOut = () => {
+        localStorage.removeItem("LOGIN_USER")
+        setLoginUser("")
+    }
 
     return (
         <header className={headerClasses.header}>
@@ -23,18 +37,26 @@ const Header = () => {
                     <img src={logo} alt="Logo"/>
                 </Link>
                 <div className={headerClasses.header__nav__bths_container}>
-                    <div className={headerClasses.header__nav__bths_container__login_bths_container}>
-                        <img src={userIcon} alt="User Icon"/>
-                        <p className={headerClasses.header__nav__bths_container__login_bths_container__bth}
-                           onClick={() => setSignUpState(true)}>
-                            Sign up
-                        </p>
-                        <p>/</p>
-                        <p className={headerClasses.header__nav__bths_container__login_bths_container__bth}
-                           onClick={() => setSignInState(true)}>
-                            Sign in
-                        </p>
-                    </div>
+                    {!loginUser ?
+                        <div className={headerClasses.header__nav__bths_container__login_bths_container}>
+                            <img src={userIcon} alt="User Icon"/>
+                            <p className={headerClasses.header__nav__bths_container__login_bths_container__bth}
+                               onClick={() => setSignUpState(true)}>
+                                Sign up
+                            </p>
+                            <p>/</p>
+                            <p className={headerClasses.header__nav__bths_container__login_bths_container__bth}
+                               onClick={() => setSignInState(true)}>
+                                Sign in
+                            </p>
+                        </div>
+                        : <div className={headerClasses.header__nav__bths_container__user_info_container}>
+                            <p>{loginUser.email}</p>
+                            <Button location={"header"} text={"Log out"} onClick={() => {
+                                logOut()
+                            }}/>
+                        </div>
+                    }
                     <Link to="/cart-page" className={headerClasses.header__nav__bths_container__cart}>
                         {cartLength
                             ? <span

@@ -9,7 +9,7 @@ import {ObjectTyped} from "object-typed";
 
 import {FormStateTypes} from "../../mockdata/validationPatterns"
 import {useDispatch} from "react-redux";
-import {signInAction} from "../../store/action";
+import {signUpAction} from "../../store/action";
 import {UserType} from "../../store/actionTypes";
 
 const SignUp = ({
@@ -30,8 +30,8 @@ const SignUp = ({
             email: formState?.email.value,
             password: formState?.password.value
         }
-        dispatch(signInAction(newUser))
-        console.log('=======>validState', formState)
+        dispatch(signUpAction(newUser))
+        if (localStorage.LOGIN_USER) setSignUpState(false)
     }
 
     useEffect(() => {

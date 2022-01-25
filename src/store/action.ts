@@ -5,6 +5,7 @@ import {
     ProductCardType,
     REMOVE_FROM_CART,
     UserType,
+    SIGN_UP,
     SIGN_IN,
 } from "./actionTypes";
 
@@ -25,6 +26,13 @@ export function removeFromCartAction(payload: ProductCardType): CartActionMapTyp
 export function loadCatalogAction(payload: Array<ProductCardType>): CartActionMapTypes["LOAD_CATALOG"] {
     return {
         type: LOAD_CATALOG,
+        payload
+    }
+}
+
+export function signUpAction(payload: UserType): CartActionMapTypes["SIGN_UP"] {
+    return {
+        type: SIGN_UP,
         payload
     }
 }

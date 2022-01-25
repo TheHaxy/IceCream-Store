@@ -18,6 +18,14 @@
       font-size: 0.875rem;
       line-height: 1rem;
 
+      &__user_info_container{
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        font-size: 1rem;
+        color: #212542;
+      }
+
       &__login_bths_container{
         display: flex;
         align-items: center;

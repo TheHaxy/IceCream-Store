@@ -1,5 +1,4 @@
 .background {
-
   &__true {
 
     display: flex;
@@ -15,7 +14,7 @@
       align-items: center;
       gap: 40px;
       position: fixed;
-      top: 172px;
+      top: 18%;
       z-index: 2;
       padding: 56px 72px;
       background: #FFFFFF;
@@ -31,6 +30,7 @@
 
       &__form {
         position: relative;
+        width: 282px;
         display: flex;
         flex-direction: column;
         align-items: center;

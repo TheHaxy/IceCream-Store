@@ -27,6 +27,11 @@
 
   }
 
+  &__header{
+    @include button_styles;
+    padding: 19px 32px;
+  }
+
   &__sign{
     @include button_styles;
     padding: 22px 111px;

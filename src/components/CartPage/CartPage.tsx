@@ -36,7 +36,7 @@ const CartPage = () => {
                                 total:</p>
                             <p className={CartPageClasses.cart_page__content__price_section__price_block__price}>{`$${allPrice}`}</p>
                         </div>
-                        <Button location="cart_page" text="Check out" image="" onClick={() => orderPlaced()}/>
+                        <Button location="cart_page" text="Check out" onClick={() => orderPlaced()}/>
                     </div>
                 </section>
             </main>

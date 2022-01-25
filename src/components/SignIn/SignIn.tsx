@@ -1,4 +1,4 @@
-import React, {BaseSyntheticEvent, useState} from 'react';
+import React, {BaseSyntheticEvent, useEffect, useState} from 'react';
 
 import signInClasses from "./SignIn.module.scss"
 import closeIcon from "../../assets/Close.svg";
@@ -6,6 +6,9 @@ import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import {useDispatch} from "react-redux";
 import {FormStateTypes} from "../../mockdata/validationPatterns";
+import {signInAction} from "../../store/action";
+import {UserType} from "../../store/actionTypes";
+import {ObjectTyped} from "object-typed";
 
 
 const SignIn = ({
@@ -13,17 +16,40 @@ const SignIn = ({
                     signInState,
                     setSignInState,
                 }: { setSignUpState: any, signInState: boolean, setSignInState: any, children?: any }) => {
+    const dispatch = useDispatch()
     const [formState, setFormState] = useState<FormStateTypes | null>(null)
     const [inputValue, setInputValue] = useState("")
+    const [isDisableBtn, setIsDisableBtn] = useState(true)
+    const validState: Array<boolean> = []
+
     const signIn = (e: BaseSyntheticEvent) => {
+        console.log(formState)
         e.preventDefault()
-        console.log('=======>formState', formState)
+        const thisUser: UserType = {
+            email: formState?.email.value,
+            password: formState?.password.value
+        }
+        dispatch(signInAction(thisUser))
+        if (localStorage.LOGIN_USER) setSignInState(false)
     }
 
     const openSignUp = () => {
         setSignUpState(true)
         setSignInState(false)
     }
+
+    useEffect(() => {
+        if (formState) {
+            ObjectTyped.keys(formState).map((i) => {
+                validState.push(formState[i].isValid)
+            })
+        }
+        Object.keys(validState).map(() => {
+            if (validState.filter((state) => !state).length || validState.length < 2) setIsDisableBtn(true);
+            else setIsDisableBtn(false);
+        })
+    }, [formState, validState])
+
     return (
         <section className={signInClasses[`background__${signInState}`]}>
             <section className={signInClasses[`background__${signInState}__sign_up_window`]}>
@@ -59,6 +85,7 @@ const SignIn = ({
                         text="Sign in"
                         image=""
                         onClick={(e) => signIn(e)}
+                        isDisabled={isDisableBtn}
                     />
                 </form>
                 <div className={signInClasses[`background__${signInState}__sign_up_window__subtitle`]}>
