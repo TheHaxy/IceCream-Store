@@ -12,8 +12,8 @@ import SignUp from "../SignUp/SignUp";
 import SignIn from "../SignIn/SignIn";
 
 const Header = () => {
-    const [signUpState, setSignUpState] = useState("closed")
-    const [signInState, setSignInState] = useState("closed")
+    const [signUpState, setSignUpState] = useState(false)
+    const [signInState, setSignInState] = useState(false)
     const cartLength = useSelector((state: RootState) => state.cartReducer.length)
 
     return (
@@ -26,12 +26,12 @@ const Header = () => {
                     <div className={headerClasses.header__nav__bths_container__login_bths_container}>
                         <img src={userIcon} alt="User Icon"/>
                         <p className={headerClasses.header__nav__bths_container__login_bths_container__bth}
-                           onClick={() => setSignUpState("open")}>
+                           onClick={() => setSignUpState(true)}>
                             Sign up
                         </p>
                         <p>/</p>
                         <p className={headerClasses.header__nav__bths_container__login_bths_container__bth}
-                           onClick={() => setSignInState("open")}>
+                           onClick={() => setSignInState(true)}>
                             Sign in
                         </p>
                     </div>

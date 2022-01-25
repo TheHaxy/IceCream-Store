@@ -1,16 +1,6 @@
-.input_label{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-size: 0.875rem;
-  line-height: 1rem;
-  font-weight: 600;
-}
-
-.input{
+@mixin input_styles{
   font-size: 1rem;
   padding: 13px 16px;
-  border: 1px solid #F4F5FF;
   border-radius: 8px;
 
   &:active, &:focus {
@@ -19,5 +9,26 @@
 
   &::placeholder {
     color: rgba(33, 37, 66, 0.25);
+  }
+}
+
+.input_label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  font-weight: 600;
+}
+
+.input {
+  &__true {
+    @include input_styles;
+    border: 1px solid #F4F5FF;
+  }
+
+  &__false{
+    @include input_styles;
+    border: 1px solid #FE8888;
   }
 }

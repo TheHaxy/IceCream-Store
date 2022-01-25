@@ -1,6 +1,6 @@
 .background {
 
-  &__open {
+  &__true {
 
     display: flex;
     justify-content: center;
@@ -63,7 +63,7 @@
     }
   }
 
-  &__closed{
+  &__false{
     top: -1000px;
     height: -1000px;
     position: fixed;
