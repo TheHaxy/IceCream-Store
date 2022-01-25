@@ -12,8 +12,8 @@ export const cartReducer = (state = defaultState, action: CartActionType): Array
         case ADD_TO_CART:
             exportToStorage("CART_STORAGE", [...state, action.payload])
             const thisProduct = state.find((product) => product.id === action.payload.id)
-            if (thisProduct) {
-                thisProduct.sum! += action.payload.sum!
+            if (thisProduct && thisProduct.sum && action.payload.sum) {
+                thisProduct.sum += action.payload.sum
                 return [...state]
             }
             return [...state, action.payload]
