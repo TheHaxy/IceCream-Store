@@ -5,19 +5,25 @@ import {loadCatalogAction} from "../../store/action";
 import {catalogStorage} from "../../mockdata/catalogStorage";
 import {ProductCardType} from "../../store/actionTypes";
 import {RootState} from "../../store/store";
+
 import ProductCard from "../ProductCard/ProductCard";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 import mainCatalogClasses from "./MainCatalog.module.scss"
 import heartIcon from "../../assets/heart-icon.svg"
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 
 const MainCatalog = () => {
     const dispatch = useDispatch()
     const products: Array<ProductCardType> = useSelector((state: RootState) => state.catalogReducer)
+
     useEffect(() => {
-        dispatch(loadCatalogAction(localStorage?.CATALOG_STORAGE ? JSON.parse(localStorage.getItem('CATALOG_STORAGE') || '') : catalogStorage))
+        dispatch(loadCatalogAction(localStorage?.CATALOG_STORAGE
+            ? JSON.parse(localStorage.getItem('CATALOG_STORAGE') || '')
+            : catalogStorage)
+        )
     }, [])
+
     return (
         <>
             <Header/>

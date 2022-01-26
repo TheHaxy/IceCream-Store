@@ -1,13 +1,15 @@
 import React from 'react';
 
-import CartPageClasses from "./CartPage.module.scss"
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/store";
+
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import LocationPanel from "../LocationPanel/LocationPanel";
 import Button from "../UI/Button/Button";
 import ProductCardToCart from "../ProductCardToCart/ProductCardToCart";
-import {useSelector} from "react-redux";
-import {RootState} from "../../store/store";
+
+import CartPageClasses from "./CartPage.module.scss"
 
 const CartPage = () => {
     let allPrice = 0
@@ -24,7 +26,7 @@ const CartPage = () => {
                     <div className={CartPageClasses.cart_page__content__products_section}>
                         <h1 className={CartPageClasses.cart_page__content__products_section__title}>Basket</h1>
                         <div className={CartPageClasses.cart_page__content__products_section__list}>
-                            {products.map((product) => {
+                            {products && products.map((product) => {
                                 allPrice += product.price * product.sum!
                                 return <ProductCardToCart product={product} key={product.id}/>
                             })}

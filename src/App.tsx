@@ -2,12 +2,13 @@ import React from 'react';
 
 import store from "./store/store"
 import {Provider} from 'react-redux'
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 
-import './App.scss';
 import MainCatalog from "./components/MainCatalog/MainCatalog";
 import ProductPage from "./components/ProductPage/ProductPage";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
 import CartPage from "./components/CartPage/CartPage";
+
+import './App.scss';
 
 function App() {
     return (

@@ -1,38 +1,24 @@
 import React, {BaseSyntheticEvent, useEffect, useState} from 'react';
 
-import signUpClasses from "./SignUp.module.scss"
-import Input from "../UI/Input/Input";
-import Button from "../UI/Button/Button";
-
-import closeIcon from "../../assets/Close.svg"
 import {ObjectTyped} from "object-typed";
-
 import {FormStateTypes} from "../../mockdata/validationPatterns"
 import {useDispatch} from "react-redux";
 import {signUpAction} from "../../store/action";
 import {UserType} from "../../store/actionTypes";
 
-const SignUp = ({
-                    signUpState,
-                    setSignUpState,
-                    setSignInState
-                }: { signUpState: boolean, setSignUpState: any, setSignInState: any }) => {
+import Input from "../UI/Input/Input";
+import Button from "../UI/Button/Button";
+
+import signUpClasses from "./SignUp.module.scss"
+import closeIcon from "../../assets/Close.svg"
+
+type SignUpType = { signUpState: boolean, setSignUpState: any, setSignInState: any }
+
+const SignUp = ({signUpState, setSignUpState, setSignInState}: SignUpType) => {
     const dispatch = useDispatch()
     const [formState, setFormState] = useState<FormStateTypes | null>(null)
     const [isDisableBtn, setIsDisableBtn] = useState(true)
-    const [inputValue, setInputValue] = useState("")
     const validState: Array<boolean> = []
-
-    const signUp = (e: BaseSyntheticEvent) => {
-        e.preventDefault()
-        const newUser: UserType = {
-            name: formState?.text.value,
-            email: formState?.email.value,
-            password: formState?.password.value
-        }
-        dispatch(signUpAction(newUser))
-        if (localStorage.LOGIN_USER) setSignUpState(false)
-    }
 
     useEffect(() => {
         if (formState) {
@@ -45,6 +31,18 @@ const SignUp = ({
             else setIsDisableBtn(false);
         })
     }, [formState, validState])
+
+    const signUp = (e: BaseSyntheticEvent) => {
+        e.preventDefault()
+        const newUser: UserType = {
+            name: formState?.text.value,
+            email: formState?.email.value,
+            password: formState?.password.value,
+            cart: [],
+        }
+        dispatch(signUpAction(newUser))
+        if (localStorage.LOGIN_USER) setSignUpState(false)
+    }
 
     const openSignIn = () => {
         setSignInState(true)
@@ -68,8 +66,6 @@ const SignUp = ({
                         placeholder="Your name"
                         formState={formState}
                         setFormState={setFormState}
-                        inputValue={inputValue}
-                        setInputValue={setInputValue}
                     />
                     <Input
                         name="Email"
@@ -77,8 +73,6 @@ const SignUp = ({
                         placeholder="Your email"
                         formState={formState}
                         setFormState={setFormState}
-                        inputValue={inputValue}
-                        setInputValue={setInputValue}
                     />
                     <Input
                         name="Password"
@@ -86,8 +80,6 @@ const SignUp = ({
                         placeholder="Enter your password"
                         formState={formState}
                         setFormState={setFormState}
-                        inputValue={inputValue}
-                        setInputValue={setInputValue}
                     />
                     <Button
                         location="sign"

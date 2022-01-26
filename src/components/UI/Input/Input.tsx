@@ -1,24 +1,16 @@
 import React, {BaseSyntheticEvent, useState} from 'react';
 
-import inputClasses from "./Input.module.scss"
-
 import {patterns} from "../../../mockdata/validationPatterns"
-
 import {FormStateTypes} from "../../../mockdata/validationPatterns"
 
-const Input = ({
-                   name,
-                   type,
-                   placeholder,
-                   formState,
-                   setFormState,
-                   inputValue,
-                   setInputValue,
-               }: { name: string, type: string, placeholder: string, formState: FormStateTypes | null, setFormState: any, inputValue: string, setInputValue: any }) => {
+import inputClasses from "./Input.module.scss"
+
+type InputType = { name: string, type: string, placeholder: string, formState: FormStateTypes | null, setFormState: any }
+
+const Input = ({name, type, placeholder, formState, setFormState}: InputType) => {
     const [isValid, setIsValid] = useState(true)
 
     const newInputValue = (e: BaseSyntheticEvent) => {
-        if (!inputValue) {
             setFormState({
                 ...formState,
                 [type]: {
@@ -28,7 +20,6 @@ const Input = ({
             })
             if (patterns[type].test(e.target.value)) setIsValid(true)
             else setIsValid(false)
-        }
     }
     return (
         <label className={inputClasses.input_label}>

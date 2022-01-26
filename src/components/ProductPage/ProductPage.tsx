@@ -1,55 +1,61 @@
 import React, {useCallback, useEffect, useState} from 'react';
 
-import ProductPageClasses from "./ProductPage.module.scss"
-import plus from "../../assets/plus.svg"
-import minus from "../../assets/minus.svg"
-import addToCartImg from "../../assets/added-to-card.svg"
-import Button from "../UI/Button/Button";
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
-
 import {useLocation} from "react-router-dom";
 import {ProductCardType} from "../../store/actionTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
-import LocationPanel from "../LocationPanel/LocationPanel";
-import cart from "../../assets/cart-icon-button.svg"
 import {addToCardAction, loadCatalogAction} from "../../store/action";
 import {catalogStorage} from "../../mockdata/catalogStorage";
 
+import Button from "../UI/Button/Button";
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
+import LocationPanel from "../LocationPanel/LocationPanel";
+
+import ProductPageClasses from "./ProductPage.module.scss"
+import cart from "../../assets/cart-icon-button.svg"
+import plus from "../../assets/plus.svg"
+import minus from "../../assets/minus.svg"
+import addToCartImg from "../../assets/added-to-card.svg"
+
 const ProductPage = () => {
     const [counter, setCounter] = useState(1)
-    const [addProductToCard, setAddProductToCard] = useState(false)
+    const [isAddedToCard, setIsAddedToCard] = useState(false)
+    const [windowState, setWindowState] = useState(false)
     const location = useLocation()
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(loadCatalogAction(localStorage?.CATALOG_STORAGE ? JSON.parse(localStorage.getItem('CATALOG_STORAGE') || '') : catalogStorage))
-    }, [])
-
     const products: Array<ProductCardType> = useSelector((state: RootState) => state.catalogReducer)
     const thisProduct: ProductCardType = products.find((item) => `#${item.id}` === location.hash) as ProductCardType
 
+    useEffect(() => {
+        dispatch(loadCatalogAction(localStorage?.CATALOG_STORAGE
+            ? JSON.parse(localStorage.getItem('CATALOG_STORAGE') || '')
+            : catalogStorage))
+    }, [])
+
     const addToCart = () => {
-        thisProduct.sum = counter
-        dispatch(addToCardAction(thisProduct))
-        setAddProductToCard(true)
-        setTimeout(() => setAddProductToCard(false), 1500)
+        if (localStorage.LOGIN_USER) {
+            thisProduct.sum = counter
+            dispatch(addToCardAction(thisProduct))
+            setIsAddedToCard(true)
+            setTimeout(() => setIsAddedToCard(false), 1500)
+        }
+        else setWindowState(true)
     }
 
     const minusOnClick = useCallback(() => {
         counter > 1 && setCounter(counter - 1)
-        setAddProductToCard(false)
+        setIsAddedToCard(false)
     }, [counter])
 
     const plusOnClick = useCallback(() => {
         setCounter(counter + 1)
-        setAddProductToCard(false)
+        setIsAddedToCard(false)
     }, [counter])
 
     return (
         <>
-            <Header/>
+            <Header windowState={windowState}/>
             <main className={ProductPageClasses.product_page}>
                 <LocationPanel location="Product Card"/>
                 <section className={ProductPageClasses.product_page__content}>
@@ -78,7 +84,7 @@ const ProductPage = () => {
                         <div className={ProductPageClasses.product_page__content__info_section__bth_section}>
                             <Button location="product_page" text="Add to cart" image={cart}
                                     onClick={() => addToCart()}/>
-                            {addProductToCard &&
+                            {isAddedToCard &&
                                 <img src={addToCartImg} alt="Product added to cart"/>
                             }
                         </div>

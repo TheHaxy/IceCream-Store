@@ -1,35 +1,33 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useEffect} from 'react';
+
+import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logOutAction} from "../../store/action";
+import {RootState} from "../../store/store";
+
+import SignUp from "../SignUp/SignUp";
+import SignIn from "../SignIn/SignIn";
+import Button from "../UI/Button/Button";
 
 import headerClasses from "./Header.module.scss"
 import logo from "../../assets/logo.svg"
 import cartIcon from "../../assets/cart-icon.svg"
 import userIcon from "../../assets/user-icon.svg"
 
-import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState} from "../../store/store";
-import SignUp from "../SignUp/SignUp";
-import SignIn from "../SignIn/SignIn";
-import Button from "../UI/Button/Button";
-
-const Header = () => {
+const Header = (windowState: any) => {
+    const dispatch = useDispatch()
     const [signUpState, setSignUpState] = useState(false)
     const [signInState, setSignInState] = useState(false)
-    const [loginUser, setLoginUser] = useState(localStorage.LOGIN_USER && JSON.parse(localStorage.getItem("LOGIN_USER") || ""))
+    const loginUser = useSelector((state: RootState) => state.loginReducer)
     const cartLength = useSelector((state: RootState) => state.cartReducer.length)
 
-    useMemo(() => {
-        if (localStorage.LOGIN_USER) {
-            setLoginUser(JSON.parse(localStorage.getItem("LOGIN_USER") || ""))
-            console.log(loginUser)
-        }
-    }, [localStorage.LOGIN_USER])
+    useEffect(() => {
+        if (windowState.windowState) setSignInState(windowState.windowState)
+    }, [windowState.windowState])
 
     const logOut = () => {
-        localStorage.removeItem("LOGIN_USER")
-        setLoginUser("")
+        dispatch(logOutAction(loginUser))
     }
-
     return (
         <header className={headerClasses.header}>
             <nav className={headerClasses.header__nav}>
@@ -51,7 +49,10 @@ const Header = () => {
                             </p>
                         </div>
                         : <div className={headerClasses.header__nav__bths_container__user_info_container}>
-                            <p>{loginUser.email}</p>
+                            <div>
+                                <p>{loginUser.name}</p>
+                                <p>{loginUser.email}</p>
+                            </div>
                             <Button location={"header"} text={"Log out"} onClick={() => {
                                 logOut()
                             }}/>

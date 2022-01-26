@@ -2,7 +2,9 @@ import React, {MouseEventHandler} from 'react';
 
 import ButtonClasses from "./Button.module.scss"
 
-const Button = ({location, text, image, onClick, isDisabled}: {location: string, text: string, image?: string, onClick: MouseEventHandler<HTMLButtonElement>, isDisabled?:boolean}) => {
+type ButtonType = { location: string, text: string, image?: string, onClick: MouseEventHandler<HTMLButtonElement>, isDisabled?: boolean }
+
+const Button = ({location, text, image, onClick, isDisabled}: ButtonType) => {
     return (
         <button className={ButtonClasses[`button__${location}`]} onClick={onClick} disabled={isDisabled}>
             {location === "product_page" &&

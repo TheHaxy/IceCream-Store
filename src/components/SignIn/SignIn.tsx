@@ -1,42 +1,26 @@
 import React, {BaseSyntheticEvent, useEffect, useState} from 'react';
 
-import signInClasses from "./SignIn.module.scss"
-import closeIcon from "../../assets/Close.svg";
-import Input from "../UI/Input/Input";
-import Button from "../UI/Button/Button";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {FormStateTypes} from "../../mockdata/validationPatterns";
 import {signInAction} from "../../store/action";
 import {UserType} from "../../store/actionTypes";
 import {ObjectTyped} from "object-typed";
+import {RootState} from "../../store/store";
 
+import Input from "../UI/Input/Input";
+import Button from "../UI/Button/Button";
 
-const SignIn = ({
-                    setSignUpState,
-                    signInState,
-                    setSignInState,
-                }: { setSignUpState: any, signInState: boolean, setSignInState: any, children?: any }) => {
+import signInClasses from "./SignIn.module.scss"
+import closeIcon from "../../assets/Close.svg";
+
+type signInType = { setSignUpState: any, signInState: boolean, setSignInState: any, children?: any }
+
+const SignIn = ({setSignUpState, signInState, setSignInState,}: signInType) => {
     const dispatch = useDispatch()
     const [formState, setFormState] = useState<FormStateTypes | null>(null)
-    const [inputValue, setInputValue] = useState("")
     const [isDisableBtn, setIsDisableBtn] = useState(true)
     const validState: Array<boolean> = []
-
-    const signIn = (e: BaseSyntheticEvent) => {
-        console.log(formState)
-        e.preventDefault()
-        const thisUser: UserType = {
-            email: formState?.email.value,
-            password: formState?.password.value
-        }
-        dispatch(signInAction(thisUser))
-        if (localStorage.LOGIN_USER) setSignInState(false)
-    }
-
-    const openSignUp = () => {
-        setSignUpState(true)
-        setSignInState(false)
-    }
+    const allUsers = useSelector((state: RootState) => state.signUpReducer)
 
     useEffect(() => {
         if (formState) {
@@ -49,6 +33,23 @@ const SignIn = ({
             else setIsDisableBtn(false);
         })
     }, [formState, validState])
+
+    const signIn = (e: BaseSyntheticEvent) => {
+        e.preventDefault()
+        const thisUser: UserType | undefined = allUsers.find((user) =>
+            user.email === formState?.email.value
+            && user.password === formState?.password.value)
+
+        if (thisUser) {
+            dispatch(signInAction(thisUser))
+            if (localStorage.LOGIN_USER) setSignInState(false)
+        }
+    }
+
+    const openSignUp = () => {
+        setSignUpState(true)
+        setSignInState(false)
+    }
 
     return (
         <section className={signInClasses[`background__${signInState}`]}>
@@ -68,8 +69,6 @@ const SignIn = ({
                         placeholder="Your email"
                         formState={formState}
                         setFormState={setFormState}
-                        inputValue={inputValue}
-                        setInputValue={setInputValue}
                     />
                     <Input
                         name="Password"
@@ -77,8 +76,6 @@ const SignIn = ({
                         placeholder="Enter your password"
                         formState={formState}
                         setFormState={setFormState}
-                        inputValue={inputValue}
-                        setInputValue={setInputValue}
                     />
                     <Button
                         location="sign"
