@@ -1,17 +1,28 @@
 import React from 'react';
 
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {removeFromCartAction} from "../../store/action";
 import {Link} from "react-router-dom";
 import {ProductCardType} from "../../store/actionTypes";
 
 import ProductCardClasses from "./ProductCardToCart.module.scss"
 import removeIcon from "../../assets/Remove icon.svg"
+import {RootState} from "../../store/store";
 
 const ProductCardToCart = ({product}: { product: ProductCardType }) => {
+    const products: Array<ProductCardType> = useSelector((state: RootState) => state.catalogReducer)
     const dispatch = useDispatch()
 
     const removeProduct = () => {
+        products.map((item: ProductCardType) => {
+            return(
+                item.id === product.id && [
+                    item.quantity = product.sum ? item.quantity + product.sum : item.quantity,
+                    item.sum = 0
+                ]
+            )
+        })
+        localStorage.setItem("CATALOG_STORAGE", JSON.stringify(products))
         dispatch(removeFromCartAction(product))
     }
 

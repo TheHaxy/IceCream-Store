@@ -34,13 +34,25 @@ const ProductPage = () => {
     }, [])
 
     const addToCart = () => {
-        if (localStorage.LOGIN_USER) {
-            thisProduct.sum = counter
-            dispatch(addToCardAction(thisProduct))
-            setIsAddedToCard(true)
-            setTimeout(() => setIsAddedToCard(false), 1500)
+        if (thisProduct.quantity >= counter) {
+            if (localStorage.LOGIN_USER) {
+                thisProduct.sum = counter
+                console.log(thisProduct.sum)
+                thisProduct.quantity = thisProduct.quantity - counter
+                dispatch(addToCardAction(thisProduct))
+                setIsAddedToCard(true)
+                products.map((product: ProductCardType) => {
+                    return(
+                        product.id === thisProduct.id && [
+                            product.quantity = thisProduct.quantity
+                        ]
+                    )
+                })
+
+                localStorage.setItem("CATALOG_STORAGE", JSON.stringify(products))
+                setTimeout(() => setIsAddedToCard(false), 1000)
+            } else setWindowState(true)
         }
-        else setWindowState(true)
     }
 
     const minusOnClick = useCallback(() => {
@@ -49,7 +61,8 @@ const ProductPage = () => {
     }, [counter])
 
     const plusOnClick = useCallback(() => {
-        setCounter(counter + 1)
+        counter < thisProduct.quantity && setCounter(counter + 1)
+        console.log(thisProduct.quantity)
         setIsAddedToCard(false)
     }, [counter])
 

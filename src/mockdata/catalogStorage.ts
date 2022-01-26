@@ -15,7 +15,7 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream1,
         id: "BXD100BLK01",
-        quantity: 10,
+        quantity: 100,
     },
     {
         name: "Snow Tender Ice Cream",
@@ -25,7 +25,7 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream2,
         id: "BXD100BLK02",
-        quantity: 10,
+        quantity: 100,
     },
     {
         name: "Snow Tender Ice Cream",
@@ -35,7 +35,7 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream3,
         id: "BXD100BLK03",
-        quantity: 10,
+        quantity: 100,
     },
     {
         name: "Snow Tender Ice Cream",
@@ -45,7 +45,7 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream4,
         id: "BXD100BLK04",
-        quantity: 10,
+        quantity: 100,
     },
     {
         name: "Snow Tender Ice Cream",
@@ -55,7 +55,7 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream4,
         id: "BXD100BLK05",
-        quantity: 10,
+        quantity: 100,
     },
     {
         name: "Snow Tender Ice Cream",
@@ -65,7 +65,7 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream4,
         id: "BXD100BLK06",
-        quantity: 10,
+        quantity: 100,
     },
     {
         name: "Snow Tender Ice Cream",
@@ -75,7 +75,7 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream4,
         id: "BXD100BLK07",
-        quantity: 10,
+        quantity: 100,
     },
     {
         name: "Snow Tender Ice Cream",
@@ -85,7 +85,7 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream4,
         id: "BXD100BLK08",
-        quantity: 10,
+        quantity: 100,
     },
     {
         name: "Snow Tender Ice Cream",
@@ -95,7 +95,7 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream4,
         id: "BXD100BLK09",
-        quantity: 10,
+        quantity: 100,
     },
     {
         name: "Snow Tender Ice Cream",
@@ -105,7 +105,7 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream4,
         id: "BXD100BLK10",
-        quantity: 10,
+        quantity: 100,
     },
     {
         name: "Snow Tender Ice Cream",
@@ -115,7 +115,7 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream4,
         id: "BXD100BLK11",
-        quantity: 10,
+        quantity: 100,
     },
     {
         name: "Snow Tender Ice Cream",
@@ -125,6 +125,6 @@ export const catalogStorage: Array<ProductCardType> = [
         price: 243.00,
         image: iceCream4,
         id: "BXD100BLK12",
-        quantity: 10,
+        quantity: 100,
     },
 ]
