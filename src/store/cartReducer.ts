@@ -1,21 +1,21 @@
-import {ADD_TO_CART, ActionType, ProductCardType, REMOVE_FROM_CART, UserType} from "./actionTypes";
+import {ADD_TO_CART, ActionType, REMOVE_FROM_CART, UserType} from "./actionTypes";
+import {initialState, InitStateType} from "./state";
 
-const defaultState: Array<ProductCardType> = localStorage.LOGIN_USER ? JSON.parse(localStorage.getItem("LOGIN_USER") || "").cart : ""
+const defaultState: InitStateType = initialState
 
 const exportToStorage = (key: string, state: any) => {
     return localStorage.setItem(key, JSON.stringify(state))
 }
 
-export const cartReducer = (state = defaultState, action: ActionType): Array<ProductCardType> => {
+export const cartReducer = (state = defaultState, action: ActionType): InitStateType => {
     switch (action.type) {
         case ADD_TO_CART:
-            const thisProduct = localStorage.LOGIN_USER ? state.find((product) => product.id === action.payload.id) : ""
+            const thisProduct = state.loginUser.cart ? state.loginUser.cart.find((product) => product.id === action.payload.id) : ""
             if (thisProduct && thisProduct.sum && action.payload.sum) {
-                thisProduct.sum += action.payload.sum
-                const thisUser = JSON.parse(localStorage.getItem("LOGIN_USER") || "")
-                thisUser.cart = [...state]
+                const thisUser = state.loginUser
+                thisUser.cart = [...state.cart]
                 exportToStorage("LOGIN_USER", thisUser)
-                const allUsers = JSON.parse(localStorage.USERS_STORAGE)
+                const allUsers = state.usersStorage
                 allUsers.map((user: UserType) => {
                     return (
                         user.email === thisUser.email && [
@@ -23,13 +23,13 @@ export const cartReducer = (state = defaultState, action: ActionType): Array<Pro
                         ]
                     )
                 })
-                localStorage.setItem("USERS_STORAGE", JSON.stringify(allUsers))
-                return [...state]
+                exportToStorage("USERS_STORAGE", allUsers)
+                return state
             } else {
-                const thisUser = JSON.parse(localStorage.getItem("LOGIN_USER") || "")
-                thisUser.cart = [...state, action.payload]
+                const thisUser = state.loginUser
+                thisUser.cart = [...state.cart, action.payload]
                 exportToStorage("LOGIN_USER", thisUser)
-                const allUsers = JSON.parse(localStorage.USERS_STORAGE)
+                const allUsers = state.usersStorage
                 allUsers.map((user: UserType) => {
                     return (
                         user.email === thisUser.email && [
@@ -37,26 +37,24 @@ export const cartReducer = (state = defaultState, action: ActionType): Array<Pro
                         ]
                     )
                 })
-                localStorage.setItem("USERS_STORAGE", JSON.stringify(allUsers))
-                return [...state, action.payload]
+                exportToStorage("USERS_STORAGE", allUsers)
+                return { ...state, cart: [...state.cart, action.payload] }
             }
         case REMOVE_FROM_CART:
-            const thisUser = JSON.parse(localStorage.getItem("LOGIN_USER") || "")
-            thisUser.cart = state.filter(product => product.id !== action.payload.id)
-            exportToStorage("LOGIN_USER", thisUser)
-            const allUsers = JSON.parse(localStorage.USERS_STORAGE)
+            state.loginUser.cart = state.loginUser.cart && state.loginUser.cart.filter(product => product.id !== action.payload.id)
+            exportToStorage("LOGIN_USER", state.loginUser)
+            const allUsers = state.usersStorage
             allUsers.map((user: UserType) => {
                 return (
-                    user.email === thisUser.email && [
-                        user.cart = thisUser.cart
+                    user.email === state.loginUser.email && [
+                        user.cart = state.loginUser.cart
                     ]
                 )
             })
-            localStorage.setItem("USERS_STORAGE", JSON.stringify(allUsers))
-            return state.filter(product => product.id !== action.payload.id)
-
+            exportToStorage("USERS_STORAGE", allUsers)
+            state.loginUser.cart && state.loginUser.cart.filter(product => product.id !== action.payload.id)
+            return state
         default:
             return state
     }
 }
-

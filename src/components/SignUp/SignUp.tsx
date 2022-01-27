@@ -2,8 +2,8 @@ import React, {BaseSyntheticEvent, useEffect, useState} from 'react';
 
 import {ObjectTyped} from "object-typed";
 import {FormStateTypes} from "../../mockdata/validationPatterns"
-import {useDispatch} from "react-redux";
-import {signUpAction} from "../../store/action";
+import {useDispatch, useSelector} from "react-redux";
+import {openSignInModalAction, openSignUpModalAction, signInAction, signUpAction} from "../../store/action";
 import {UserType} from "../../store/actionTypes";
 
 import Input from "../UI/Input/Input";
@@ -11,11 +11,12 @@ import Button from "../UI/Button/Button";
 
 import signUpClasses from "./SignUp.module.scss"
 import closeIcon from "../../assets/Close.svg"
+import {RootState} from "../../store/store";
 
-type SignUpType = { signUpState: boolean, setSignUpState: any, setSignInState: any }
 
-const SignUp = ({signUpState, setSignUpState, setSignInState}: SignUpType) => {
+const SignUp = () => {
     const dispatch = useDispatch()
+    const allUsers = useSelector((state: RootState) => state.signUpReducer)
     const [formState, setFormState] = useState<FormStateTypes | null>(null)
     const [isDisableBtn, setIsDisableBtn] = useState(true)
     const validState: Array<boolean> = []
@@ -41,24 +42,28 @@ const SignUp = ({signUpState, setSignUpState, setSignInState}: SignUpType) => {
             cart: [],
         }
         dispatch(signUpAction(newUser))
-        if (localStorage.LOGIN_USER) setSignUpState(false)
+        if (!allUsers.find((user) => user.email === newUser.email)) {
+            dispatch(openSignUpModalAction(false))
+            dispatch(signInAction(newUser))
+        }
     }
 
     const openSignIn = () => {
-        setSignInState(true)
-        setSignUpState(false)
+        dispatch(openSignUpModalAction(false))
+        dispatch(openSignInModalAction(true))
     }
     return (
-        <section className={signUpClasses[`background__${signUpState}`]}>
-            <section className={signUpClasses[`background__${signUpState}__sign_up_window`]}>
-                <h1 className={signUpClasses[`background__${signUpState}__sign_up_window__title`]}>Create an
+        <section className={signUpClasses[`background`]}>
+            <section className={signUpClasses[`background__sign_up_window`]}>
+                <h1 className={signUpClasses[`background__sign_up_window__title`]}>Create an
                     account</h1>
-                <form className={signUpClasses[`background__${signUpState}__sign_up_window__form`]}>
+                <form className={signUpClasses[`background__sign_up_window__form`]}>
                     <img
                         src={closeIcon}
                         alt="Close Window"
-                        className={signUpClasses[`background__${signUpState}__sign_up_window__form__close_icon`]}
-                        onClick={() => setSignUpState(false)}
+                        className={signUpClasses[`background__sign_up_window__form__close_icon`]}
+                        onClick={() => dispatch(openSignUpModalAction(false))}
+
                     />
                     <Input
                         name="Name"
@@ -89,10 +94,10 @@ const SignUp = ({signUpState, setSignUpState, setSignInState}: SignUpType) => {
                         isDisabled={isDisableBtn}
                     />
                 </form>
-                <div className={signUpClasses[`background__${signUpState}__sign_up_window__subtitle`]}>
+                <div className={signUpClasses[`background__sign_up_window__subtitle`]}>
                     <p>Do you already have an account?</p>
                     <span
-                        className={signUpClasses[`background__${signUpState}__sign_up_window__subtitle__link`]}
+                        className={signUpClasses[`background__sign_up_window__subtitle__link`]}
                         onClick={() => openSignIn()}>Sing in</span>
                 </div>
             </section>

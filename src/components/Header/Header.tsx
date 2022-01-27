@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {logOutAction} from "../../store/action";
+import {logOutAction, openSignInModalAction, openSignUpModalAction} from "../../store/action";
 import {RootState} from "../../store/store";
 
 import SignUp from "../SignUp/SignUp";
@@ -14,20 +14,14 @@ import logo from "../../assets/logo.svg"
 import cartIcon from "../../assets/cart-icon.svg"
 import userIcon from "../../assets/user-icon.svg"
 
-const Header = (windowState: any) => {
+const Header = () => {
     const dispatch = useDispatch()
-    const [signUpState, setSignUpState] = useState(false)
-    const [signInState, setSignInState] = useState(false)
-    const loginUser = useSelector((state: RootState) => state.loginReducer)
-    const cartLength = useSelector((state: RootState) => state.cartReducer.length)
-
-    useEffect(() => {
-        if (windowState.windowState) setSignInState(windowState.windowState)
-    }, [windowState.windowState])
+    const loginUser = useSelector((state: RootState) => state.loginReducer.loginUser)
 
     const logOut = () => {
         dispatch(logOutAction(loginUser))
     }
+
     return (
         <header className={headerClasses.header}>
             <nav className={headerClasses.header__nav}>
@@ -35,16 +29,16 @@ const Header = (windowState: any) => {
                     <img src={logo} alt="Logo"/>
                 </Link>
                 <div className={headerClasses.header__nav__bths_container}>
-                    {!loginUser ?
+                    {!loginUser.name ?
                         <div className={headerClasses.header__nav__bths_container__login_bths_container}>
                             <img src={userIcon} alt="User Icon"/>
                             <p className={headerClasses.header__nav__bths_container__login_bths_container__bth}
-                               onClick={() => setSignUpState(true)}>
+                               onClick={() => dispatch(openSignUpModalAction(true))}>
                                 Sign up
                             </p>
                             <p>/</p>
                             <p className={headerClasses.header__nav__bths_container__login_bths_container__bth}
-                               onClick={() => setSignInState(true)}>
+                               onClick={() => dispatch(openSignInModalAction(true))}>
                                 Sign in
                             </p>
                         </div>
@@ -59,9 +53,9 @@ const Header = (windowState: any) => {
                         </div>
                     }
                     <Link to="/cart-page" className={headerClasses.header__nav__bths_container__cart}>
-                        {cartLength
+                        {loginUser.cart?.length
                             ? <span
-                                className={headerClasses.header__nav__bths_container__cart__counter}>{cartLength}</span>
+                                className={headerClasses.header__nav__bths_container__cart__counter}>{loginUser.cart.length}</span>
                             : ""
                         }
                         <img src={cartIcon} alt="Cart Icon"/>
@@ -69,16 +63,12 @@ const Header = (windowState: any) => {
                     </Link>
                 </div>
             </nav>
-            <SignUp
-                signUpState={signUpState}
-                setSignUpState={setSignUpState}
-                setSignInState={setSignInState}
-            />
-            <SignIn
-                signInState={signInState}
-                setSignInState={setSignInState}
-                setSignUpState={setSignUpState}
-            />
+            {useSelector((state: RootState) => state.modalReducer.signUp) &&
+                <SignUp/>
+            }
+            {useSelector((state: RootState) => state.modalReducer.signIn) &&
+                <SignIn/>
+            }
         </header>
     );
 };

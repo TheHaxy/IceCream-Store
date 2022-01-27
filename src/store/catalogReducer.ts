@@ -1,6 +1,7 @@
 import {ActionType, LOAD_CATALOG, ProductCardType} from "./actionTypes";
+import {initialState} from "./state";
 
-const defaultState: Array<ProductCardType> = []
+const defaultState: Array<ProductCardType> = initialState.catalog
 
 export const catalogReducer = (state = defaultState, action: ActionType): (ProductCardType | Array<ProductCardType>)[] => {
     switch (action.type) {

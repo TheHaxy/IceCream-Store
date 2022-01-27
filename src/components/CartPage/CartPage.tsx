@@ -10,11 +10,11 @@ import Button from "../UI/Button/Button";
 import ProductCardToCart from "../ProductCardToCart/ProductCardToCart";
 
 import CartPageClasses from "./CartPage.module.scss"
+import {ProductCardType} from "../../store/actionTypes";
 
 const CartPage = () => {
     let allPrice = 0
-    const products = useSelector((state: RootState) => state.cartReducer)
-
+    const products: Array<ProductCardType> | undefined = useSelector((state: RootState) => state.loginReducer.loginUser.cart)
     const orderPlaced = () => {
     }
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {useDispatch, useSelector} from "react-redux";
-import {removeFromCartAction} from "../../store/action";
+import {loadCatalogAction, removeFromCartAction} from "../../store/action";
 import {Link} from "react-router-dom";
 import {ProductCardType} from "../../store/actionTypes";
 
@@ -22,7 +22,7 @@ const ProductCardToCart = ({product}: { product: ProductCardType }) => {
                 ]
             )
         })
-        localStorage.setItem("CATALOG_STORAGE", JSON.stringify(products))
+        dispatch(loadCatalogAction(products))
         dispatch(removeFromCartAction(product))
     }
 

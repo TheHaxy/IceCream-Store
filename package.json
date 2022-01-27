@@ -7,11 +7,11 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.0",
-    "@types/node": "^16.11.21",
     "@types/node-sass": "^4.11.2",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.3",
+    "@types/react-transition-group": "^4.4.4",
     "node-sass": "^7.0.1",
     "object-typed": "^0.1.0",
     "react": "^17.0.2",
@@ -19,6 +19,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.0",
+    "react-transition-group": "^4.4.2",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "sass": "^1.49.0",
@@ -50,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^17.0.12",
     "css-loader": "^6.5.1",
     "style-loader": "^3.3.1",
     "typescript-plugin-css-modules": "^3.4.0"

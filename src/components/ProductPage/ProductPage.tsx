@@ -4,7 +4,7 @@ import {useLocation} from "react-router-dom";
 import {ProductCardType} from "../../store/actionTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
-import {addToCardAction, loadCatalogAction} from "../../store/action";
+import {addToCardAction, loadCatalogAction, openSignInModalAction} from "../../store/action";
 import {catalogStorage} from "../../mockdata/catalogStorage";
 
 import Button from "../UI/Button/Button";
@@ -21,11 +21,11 @@ import addToCartImg from "../../assets/added-to-card.svg"
 const ProductPage = () => {
     const [counter, setCounter] = useState(1)
     const [isAddedToCard, setIsAddedToCard] = useState(false)
-    const [windowState, setWindowState] = useState(false)
+    const [isDisableBtn, setIsDisableBtn] = useState(false)
     const location = useLocation()
     const dispatch = useDispatch()
-    const products: Array<ProductCardType> = useSelector((state: RootState) => state.catalogReducer)
-    const thisProduct: ProductCardType = products.find((item) => `#${item.id}` === location.hash) as ProductCardType
+    const thisState = useSelector((state: RootState) => state.loginReducer)
+    const thisProduct: ProductCardType = thisState.catalog.find((item) => `#${item.id}` === location.hash) as ProductCardType
 
     useEffect(() => {
         dispatch(loadCatalogAction(localStorage?.CATALOG_STORAGE
@@ -33,42 +33,53 @@ const ProductPage = () => {
             : catalogStorage))
     }, [])
 
+    useEffect(() => {
+        counter <= thisProduct.quantity ? setIsDisableBtn(false) : setIsDisableBtn(true)
+    }, [localStorage.CATALOG_STORAGE])
+
     const addToCart = () => {
-        if (thisProduct.quantity >= counter) {
-            if (localStorage.LOGIN_USER) {
-                thisProduct.sum = counter
-                console.log(thisProduct.sum)
+            if (thisState.loginUser.name) {
+                thisProduct.sum = thisProduct.sum ? thisProduct.sum + counter : counter
                 thisProduct.quantity = thisProduct.quantity - counter
                 dispatch(addToCardAction(thisProduct))
                 setIsAddedToCard(true)
-                products.map((product: ProductCardType) => {
-                    return(
+                thisState.catalog.map((product: ProductCardType) => {
+                    return (
                         product.id === thisProduct.id && [
                             product.quantity = thisProduct.quantity
                         ]
                     )
                 })
-
-                localStorage.setItem("CATALOG_STORAGE", JSON.stringify(products))
+                dispatch(loadCatalogAction(thisState.catalog))
                 setTimeout(() => setIsAddedToCard(false), 1000)
-            } else setWindowState(true)
-        }
+            }
+        setCounter(1)
+        dispatch(openSignInModalAction(true))
     }
 
     const minusOnClick = useCallback(() => {
-        counter > 1 && setCounter(counter - 1)
-        setIsAddedToCard(false)
+        if (counter > 1)
+        {
+            setCounter(counter - 1)
+            counter <= thisProduct.quantity + 1 && setIsDisableBtn(false)
+            setIsAddedToCard(false)
+        }
     }, [counter])
 
     const plusOnClick = useCallback(() => {
-        counter < thisProduct.quantity && setCounter(counter + 1)
-        console.log(thisProduct.quantity)
-        setIsAddedToCard(false)
+        if (counter < thisProduct.quantity) {
+            setIsDisableBtn(false)
+            setCounter(counter + 1)
+        }
+        if (counter === thisProduct.quantity) {
+            setCounter(counter + 1)
+            setIsDisableBtn(true)
+        }
     }, [counter])
 
     return (
         <>
-            <Header windowState={windowState}/>
+            <Header/>
             <main className={ProductPageClasses.product_page}>
                 <LocationPanel location="Product Card"/>
                 <section className={ProductPageClasses.product_page__content}>
@@ -95,8 +106,13 @@ const ProductPage = () => {
                             </div>
                         </div>
                         <div className={ProductPageClasses.product_page__content__info_section__bth_section}>
-                            <Button location="product_page" text="Add to cart" image={cart}
-                                    onClick={() => addToCart()}/>
+                            <Button
+                                location="product_page"
+                                text="Add to cart"
+                                image={cart}
+                                onClick={() => addToCart()}
+                                isDisabled={isDisableBtn}
+                            />
                             {isAddedToCard &&
                                 <img src={addToCartImg} alt="Product added to cart"/>
                             }

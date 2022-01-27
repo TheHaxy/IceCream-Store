@@ -1,13 +1,14 @@
 import {
-    ADD_TO_CART,
     ActionMapTypes,
+    ADD_TO_CART,
     LOAD_CATALOG,
+    LOG_OUT,
+    OPEN_SIGN_IN_MODAL, OPEN_SIGN_UP_MODAL,
     ProductCardType,
     REMOVE_FROM_CART,
-    UserType,
-    SIGN_UP,
     SIGN_IN,
-    LOG_OUT,
+    SIGN_UP,
+    UserType,
 } from "./actionTypes";
 
 export function addToCardAction(payload: ProductCardType): ActionMapTypes["ADD_TO_CART"] {
@@ -48,6 +49,20 @@ export function signInAction(payload: UserType): ActionMapTypes["SIGN_IN"] {
 export function logOutAction(payload: UserType): ActionMapTypes["LOG_OUT"] {
     return {
         type: LOG_OUT,
+        payload
+    }
+}
+
+export function openSignInModalAction(payload: boolean): ActionMapTypes["OPEN_SIGN_IN_MODAL"] {
+    return {
+        type: OPEN_SIGN_IN_MODAL,
+        payload
+    }
+}
+
+export function openSignUpModalAction(payload: boolean): ActionMapTypes["OPEN_SIGN_UP_MODAL"] {
+    return {
+        type: OPEN_SIGN_UP_MODAL,
         payload
     }
 }

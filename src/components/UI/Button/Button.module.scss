@@ -5,9 +5,14 @@
   font-size: 1rem;
   border: none;
   color: #FFFFFF;
+  transition: 1s;
   
   &:hover{
     cursor: pointer;
+  }
+  &:disabled{
+    background: gray;
+    cursor: default;
   }
 }
 

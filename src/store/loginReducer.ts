@@ -1,20 +1,24 @@
-import {UserType, SIGN_IN, ActionType, LOG_OUT} from "./actionTypes";
+import { SIGN_IN, ActionType, LOG_OUT} from "./actionTypes";
+import {initialState, InitStateType} from "./state";
 
 const exportToStorage = (key: string, state: any) => {
     return localStorage.setItem(key, JSON.stringify(state))
 }
 
-const defaultState: UserType  = localStorage.LOGIN_USER ? JSON.parse(localStorage.getItem("LOGIN_USER") || "") : ""
+const defaultState: InitStateType = initialState
 
-export const loginReducer = (state = defaultState, action: ActionType): UserType => {
+export const loginReducer = (state = defaultState, action: ActionType): InitStateType => {
     switch (action.type) {
         case "SIGN_IN":
+            state.loginUser = action.payload
                 exportToStorage("LOGIN_USER", action.payload)
-                return action.payload
+                return state
 
         case "LOG_OUT":
+            state.loginUser = {}
+            state.cart = []
             localStorage.removeItem("LOGIN_USER")
-            return defaultState
+            return state
 
         default:
             return state

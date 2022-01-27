@@ -12,7 +12,6 @@ export const signUpReducer = (state = defaultState, action: ActionType): Array<U
             if (state.find((user) => user.email === action.payload.email)) return [...state]
             else{
                 exportToStorage("USERS_STORAGE", [...state, action.payload])
-                exportToStorage("LOGIN_USER", action.payload)
                 return [...state, action.payload]
             }
         default:

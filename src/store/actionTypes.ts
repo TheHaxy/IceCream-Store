@@ -4,8 +4,10 @@ export const LOAD_CATALOG = "LOAD_CATALOG"
 export const SIGN_UP = "SIGN_UP"
 export const SIGN_IN = "SIGN_IN"
 export const LOG_OUT = "LOG_OUT"
+export const OPEN_SIGN_IN_MODAL = "OPEN_SIGN_IN_MODAL"
+export const OPEN_SIGN_UP_MODAL = "OPEN_SIGN_UP_MODAL"
 
-export type ProductCardType = { name: string, text: string, id: string, price: number, image: string, sum?: number, quantity: number}
+export type ProductCardType = { name: string, text: string, id: string, price: number, image: string, sum?: number, quantity: number }
 export type UserType = { name?: any, email?: any, password?: any, cart?: Array<ProductCardType> }
 
 export type ActionType = ActionMapTypes[keyof ActionMapTypes]
@@ -34,5 +36,13 @@ export type ActionMapTypes = {
     [LOG_OUT]: {
         type: typeof LOG_OUT,
         payload: UserType
+    }
+    [OPEN_SIGN_IN_MODAL]: {
+        type: typeof OPEN_SIGN_IN_MODAL,
+        payload: boolean
+    }
+    [OPEN_SIGN_UP_MODAL]: {
+        type: typeof OPEN_SIGN_UP_MODAL,
+        payload: boolean
     }
 }
