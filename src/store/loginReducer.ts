@@ -1,7 +1,7 @@
-import { SIGN_IN, ActionType, LOG_OUT} from "./actionTypes";
+import { SIGN_IN, ActionType, LOG_OUT } from "./actionTypes";
 import {initialState, InitStateType} from "./state";
 
-const exportToStorage = (key: string, state: any) => {
+const exportToStorage = (key: string, state: object) => {
     return localStorage.setItem(key, JSON.stringify(state))
 }
 
