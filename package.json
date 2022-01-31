@@ -6,12 +6,14 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "@types/bcrypt": "^5.0.0",
     "@types/jest": "^27.4.0",
     "@types/node-sass": "^4.11.2",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-transition-group": "^4.4.4",
+    "bcryptjs": "^2.4.3",
     "node-sass": "^7.0.1",
     "normalize.css": "^8.0.1",
     "object-typed": "^0.1.0",
@@ -52,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/node": "^17.0.12",
     "css-loader": "^6.5.1",
     "prettier": "2.5.1",

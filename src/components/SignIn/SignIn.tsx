@@ -16,35 +16,42 @@ import Button from "../UI/Button/Button";
 
 import signInClasses from "./SignIn.module.scss";
 import closeIcon from "../../assets/Close.svg";
+import bcrypt from "bcryptjs";
 
 const SignIn = () => {
   const dispatch = useDispatch();
   const [formState, setFormState] = useState<FormStateTypes | null>(null);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
-  const [validState, setValidState] = useState<Array<boolean>>([])
+  const [validState, setValidState] = useState<Array<boolean>>([]);
   const allUsers: Array<UserType> = useSelector(
     (state: RootState) => state.signUpReducer
   );
 
   useEffect(() => {
     if (formState) {
-      ObjectTyped.keys(formState).map((i) => {
-        formState[i] && setValidState([...validState, !!formState[i]?.isValid]);
+      const newValid: Array<boolean> = [];
+      ObjectTyped.keys(formState).map((key) => {
+        newValid.push(!!formState[key]?.isValid);
+        setValidState(newValid);
       });
     }
+  }, [formState]);
+
+  useEffect(() => {
     Object.keys(validState).map(() => {
       if (validState.filter((state) => !state).length || validState.length < 2)
         setIsDisableBtn(true);
       else setIsDisableBtn(false);
     });
-  }, [formState, validState]);
+  }, [validState]);
 
   const signIn = (e: BaseSyntheticEvent) => {
     e.preventDefault();
     const thisUser: UserType | undefined = allUsers.find(
       (user) =>
-          formState?.email && user.email === formState?.email.value &&
-          formState?.password && user.password === formState?.password.value
+        formState?.email &&
+        user.email === formState?.email.value &&
+        formState?.password && user.password && bcrypt.compareSync(formState.password.value, user.password)
     );
     if (thisUser) {
       dispatch(signInAction(thisUser));

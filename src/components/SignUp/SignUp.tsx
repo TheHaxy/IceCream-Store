@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { ObjectTyped } from "object-typed";
 import { FormStateTypes } from "../../mockdata/validationPatterns";
+import { RootState } from "../../store/store";
+import { UserType } from "../../store/actionTypes";
 import {
   openSignInModalAction,
   openSignUpModalAction,
   signInAction,
   signUpAction,
 } from "../../store/action";
-import { UserType } from "../../store/actionTypes";
-
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 
 import signUpClasses from "./SignUp.module.scss";
 import closeIcon from "../../assets/Close.svg";
-import { RootState } from "../../store/store";
+import bcrypt from "bcryptjs";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -25,27 +25,33 @@ const SignUp = () => {
   );
   const [formState, setFormState] = useState<FormStateTypes | null>(null);
   const [isDisableBtn, setIsDisableBtn] = useState(true);
-  const [validState, setValidState] = useState<Array<boolean>>([])
+  const [validState, setValidState] = useState<Array<boolean>>([]);
 
   useEffect(() => {
     if (formState) {
-      ObjectTyped.keys(formState).map((i) => {
-        formState[i] && setValidState([...validState, !!formState[i]?.isValid]);
+      const newValid: Array<boolean> = []
+      ObjectTyped.keys(formState).map((key) => {
+        newValid.push(!!formState[key]?.isValid)
+        setValidState(newValid)
       });
     }
+  }, [formState]);
+
+  useEffect(() => {
     Object.keys(validState).map(() => {
       if (validState.filter((state) => !state).length || validState.length < 3)
         setIsDisableBtn(true);
       else setIsDisableBtn(false);
     });
-  }, [formState, validState]);
+  }, [validState]);
 
   const signUp = (e: BaseSyntheticEvent) => {
     e.preventDefault();
+    const cryptPassword = formState?.password && bcrypt.hashSync(formState.password.value, bcrypt.genSaltSync(10))
     const newUser: UserType = {
       name: formState?.text && formState?.text.value,
       email: formState?.email && formState?.email.value,
-      password:formState?.password && formState?.password.value,
+      password: cryptPassword,
       cart: [],
     };
     dispatch(signUpAction(newUser));
@@ -118,5 +124,4 @@ const SignUp = () => {
     </section>
   );
 };
-
 export default SignUp;
