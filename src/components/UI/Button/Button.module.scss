@@ -1,15 +1,45 @@
-.button{
-  display: flex;
-  gap: 10px;
+@mixin button_styles{
   background: linear-gradient(92.65deg, #DFEBFF -21.79%, #88ADCA 126.46%), #AECEF3;
-  padding: 19px 32px;
   border-radius: 69px;
   font-weight: 500;
   font-size: 1rem;
   border: none;
+  color: #FFFFFF;
+  transition: 1s;
+  
+  &:hover{
+    cursor: pointer;
+  }
+  &:disabled{
+    background: gray;
+    cursor: default;
+  }
+}
 
-  &:active{
-    border: none;
+.button{
+
+  &__product_page{
+    @include button_styles;
+    display: flex;
+    gap: 10px;
+    padding: 19px 32px;
+
+  }
+
+  &__cart_page{
+    @include button_styles;
+    padding: 22px 99px;
+
+  }
+
+  &__header{
+    @include button_styles;
+    padding: 13px 32px;
+  }
+
+  &__sign{
+    @include button_styles;
+    padding: 22px 111px;
   }
 
   &__text{

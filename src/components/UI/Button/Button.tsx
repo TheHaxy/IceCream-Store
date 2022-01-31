@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { MouseEventHandler } from "react";
 
-import ButtonClasses from "./Button.module.scss"
-import cart from "../../../assets/cart-icon-button.svg"
+import ButtonClasses from "./Button.module.scss";
 
-const Button = () => {
-    return (
-        <button className={ButtonClasses.button}>
-            <img src={cart} alt="Cart Icon"/>
-            <p className={ButtonClasses.button__text}>Add to cart</p>
-        </button>
-    );
+type ButtonType = {
+  location: string;
+  text: string;
+  image?: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  isDisabled?: boolean;
+};
+
+const Button = ({ location, text, image, onClick, isDisabled }: ButtonType) => {
+  return (
+    <button
+      className={ButtonClasses[`button__${location}`]}
+      onClick={onClick}
+      disabled={isDisabled}
+    >
+      {location === "product_page" && <img src={image} alt="Cart Icon" />}
+      <p className={ButtonClasses[`button__text`]}>{text}</p>
+    </button>
+  );
 };
 
 export default Button;

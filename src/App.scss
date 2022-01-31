@@ -1,24 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap');
 
-*{
+* {
   font-family: "Inter", sans-serif;
   color: #212542;
   margin: 0;
   padding: 0;
 }
 
-html, body{
+#root {
   height: 100%;
-}
-
-main{
+  display: flex;
+  flex-direction: column;
   flex: 1 0 auto;
 }
 
-.App{
-  display: flex;
-  flex-direction: column;
+html, body {
   height: 100%;
 }
+
+main {
+  flex: 1 0 auto;
+}
+
 
 
